@@ -1,13 +1,11 @@
+require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 
 const app = express();
 
-// Libera CORS para qualquer origem
 app.use(cors());
-
-// Middleware manual adicional (opcional)
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "HEAD, GET, POST, PATCH, DELETE");
@@ -17,16 +15,26 @@ app.use((req, res, next) => {
 
 app.use(express.json());
 
-// Configura a porta
 const PORT = process.env.PORT || 3000;
 
-// Configura as rotas
-const routes = require('./../API/routes/routes'); // Verifique se o caminho existe mesmo
+// Conecta ao banco MongoDB (via variável de ambiente)
+const mongoURL = process.env.MONGO_URL;
+mongoose.connect(mongoURL)
+  .then(() => console.log('✅ Banco de dados conectado!'))
+  .catch(err => {
+    console.error('❌ Erro ao conectar no MongoDB:', err);
+    process.exit(1);
+  });
+
+// Importa e usa as rotas (ajuste o caminho se necessário)
+const routes = require('../API/routes/routes'); // <--- cuidado com esse caminho
 app.use('/api', routes);
 
-// Rota de teste
+// Rota simples de teste
 app.get('/', (req, res) => {
   res.send('Hello Render!');
 });
 
-// Inicia
+app.listen(PORT, () => {
+  console.log(`🚀 Servidor rodando na porta ${PORT}`);
+});
