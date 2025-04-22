@@ -4,7 +4,7 @@
   },
   "name": "backend",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "api/index.js",
   "devDependencies": {
     "express": "^4.17.1"
   },
