@@ -1,47 +1,32 @@
+const express = require('express');
 const cors = require('cors');
+const mongoose = require('mongoose');
+
+const app = express();
+
+// Libera CORS para qualquer origem
 app.use(cors());
 
-
-const express = require('express');
-const app = express();
+// Middleware manual adicional (opcional)
 app.use((req, res, next) => {
- res.setHeader("Access-Control-Allow-Origin", "*");
- res.setHeader('Access-Control-Allow-Methods', 'HEAD, GET, POST, PATCH, DELETE');
- res.header(
- "Access-Control-Allow-Headers",
- "Origin, X-Requested-With, Content-Type, Accept"
- );
- next();
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Methods", "HEAD, GET, POST, PATCH, DELETE");
+  res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
 });
+
 app.use(express.json());
+
+// Configura a porta
 const PORT = process.env.PORT || 3000;
 
-const routes = require('../API/routes/routes');
+// Configura as rotas
+const routes = require('./../API/routes/routes'); // Verifique se o caminho existe mesmo
 app.use('/api', routes);
 
+// Rota de teste
 app.get('/', (req, res) => {
-    res.send('Hello Render!');
-  });
+  res.send('Hello Render!');
+});
 
-
-
-app.listen(PORT, () => {
- console.log(`Server Started at ${PORT}`)
-})
-
-
-
-// Obtendo os parametros passados pela linha de comando
-var userArgs = process.argv.slice(2);
-var mongoURL = userArgs[0];
-//Configurando a conexao com o Banco de Dados
-var mongoose = require('mongoose');
-mongoose.connect(mongoURL);
-mongoose.Promise = global.Promise;
-const db = mongoose.connection;
-db.on('error', (error) => {
- console.log(error)
-})
-db.once('connected', () => {
- console.log('Database Connected');
-})
+// Inicia
