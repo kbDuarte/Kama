@@ -1,3 +1,7 @@
+const cors = require('cors');
+app.use(cors());
+
+
 const express = require('express');
 const app = express();
 app.use((req, res, next) => {
@@ -18,6 +22,8 @@ app.use('/api', routes);
 app.get('/', (req, res) => {
     res.send('Hello Render!');
   });
+
+
 
 app.listen(PORT, () => {
  console.log(`Server Started at ${PORT}`)
