@@ -15,9 +15,16 @@ const PORT = process.env.PORT || 3000;
 const routes = require('../API/routes/routes');
 app.use('/api', routes);
 
+app.get('/', (req, res) => {
+    res.send('Hello Render!');
+  });
+
 app.listen(PORT, () => {
  console.log(`Server Started at ${PORT}`)
 })
+
+
+
 // Obtendo os parametros passados pela linha de comando
 var userArgs = process.argv.slice(2);
 var mongoURL = userArgs[0];
