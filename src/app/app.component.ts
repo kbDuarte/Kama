@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Tarefa } from "./tarefa";
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../environments/environments'; 
 
 @Component({
  selector: 'app-root',
@@ -12,9 +13,9 @@ export class AppComponent {
  title = 'TODOapp';
  arrayDeTarefas: Tarefa[] = [];
  apiURL: string;  
-
+ 
  constructor(private http: HttpClient) {
-  this.apiURL = 'http://localhost:3000';
+  this.apiURL = environment.apiUrl;
   this.READ_tarefas();
  }
 
