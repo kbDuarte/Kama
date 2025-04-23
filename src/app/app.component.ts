@@ -23,7 +23,7 @@ export class AppComponent {
  CREATE_tarefa(descricaoNovaTarefa: string) {
   var novaTarefa = new Tarefa(descricaoNovaTarefa, false);
   this.arrayDeTarefas.unshift(novaTarefa);
-  this.http.post<Tarefa>(`${this.apiURL}/api/post`, novaTarefa).subscribe(
+  this.http.post<Tarefa>(`${this.apiURL}/../api/post`, novaTarefa).subscribe(
     resultado => { console.log(resultado); this.READ_tarefas(); });  
 }
 
